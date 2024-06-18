@@ -1,0 +1,84 @@
+:root {
+  --blue: #1e90ff;
+  --white: #ffffff;
+  --grey: grey;
+  --darkgrey: rgb(105, 104, 104);
+  --ex-small: 3px;
+  --small: 5px;
+  --medium: 10px;
+  --large: 25px;
+  --ex-large: 50px;
+}
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--grey);
+}
+header {
+  background-color: var(--grey);
+  min-height: 15vh;
+  display: flex;
+  position: relative;
+}
+
+main {
+  display: grid;
+  grid-template-columns: minmax(150px, 300px) minmax(400px, 1fr) minmax(
+      150px,
+      300px
+    );
+  gap: 25px;
+}
+
+header h1 {
+  margin: auto;
+  text-align: center;
+  color: var(--white);
+}
+
+#theme {
+  position: absolute;
+  top: 6vh;
+  height: var(--large);
+  right: var(--large);
+}
+
+#songs {
+  border-top-right-radius: var(--small);
+  border-bottom-right-radius: var(--small);
+  padding: var(--small);
+}
+
+#songs h3 {
+  margin-top: var(--medium);
+}
+
+#song-list .song {
+  background-color: var(--blue);
+  border-radius: var(--small);
+  height: var(--large);
+  margin-top: var(--small);
+  padding-left: var(--small);
+  padding-top: var(--ex-small);
+  color: var(--white);
+  cursor: pointer;
+}
+
+#player {
+  border-radius: var(--small);
+}
+
+#playlist {
+  border-top-left-radius: var(--small);
+  border-bottom-left-radius: var(--small);
+}
+
+.column {
+  background-color: var(--white);
+  min-height: 80vh;
+  box-shadow: 0 0 10px 1px var(--darkgrey);
+}

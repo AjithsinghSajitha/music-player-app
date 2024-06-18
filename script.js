@@ -5,7 +5,7 @@ const songs = [
     artist: "Artist Name 1",
     img: "./music/horse.ogv",
     genre: "Genre 1",
-    source: "source_url_1.mp3",
+    source: "./music/horse.ogv",
   },
   {
     id: 2,
@@ -49,6 +49,7 @@ const updateSongList = () =>{
     songs.map((song)=>{
         let div = document.createElement('div');
         let filter = document.createElement('option');
+        let player = document.getElementById('player');
 
         filter.innerText = song.genre;
         filter.setAttribute('value', song.genre.toLowerCase());
@@ -56,6 +57,10 @@ const updateSongList = () =>{
 
         div.innerText = song.name;
         div.classList.add('song');
+        div.addEventListener('click',()=>{
+            player.src = song.source;
+        })
+
         songList.append(div);
     });
     

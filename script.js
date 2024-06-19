@@ -98,6 +98,7 @@ const songList = document.getElementById("song-list");
 const filterList = document.getElementById("filters");
 const switchTheme = document.getElementById("theme");
 const albumImage = document.getElementById("album-image");
+const root = document.querySelector(':root');
 
 const updateSongList = (songs) => {
   songList.innerHTML = "";

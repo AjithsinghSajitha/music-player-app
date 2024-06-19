@@ -4,6 +4,8 @@
   --grey: grey;
   --darkgrey: rgb(105, 104, 104);
   --lime-green: #4ed164;
+  --theme-background: var(--grey);
+  --theme-foreground: var(--white);
 
   --ex-small: 3px;
   --small: 5px;
@@ -19,23 +21,28 @@
 }
 
 body {
-  background: var(--grey);
+  background: var(--theme-background);
+  color: var(--theme-foreground);
 }
 
 header {
+  margin: auto;
   display: flex;
   position: relative;
   min-height: 15vh;
   background-color: var(--grey);
+  max-width: 1000px;
 }
 
 main {
+  margin: auto;
   display: grid;
   grid-template-columns: minmax(150px, 300px) minmax(400px, 1fr) minmax(
       150px,
       300px
     );
   gap: var(--medium);
+  max-width: 1000px;
 }
 
 header h1 {

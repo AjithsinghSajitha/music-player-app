@@ -27,7 +27,7 @@ header {
   position: relative;
   min-height: 15vh;
   background-color: var(--grey);
-  z-index: -1;
+  z-index: -2;
 }
 
 main {
@@ -124,10 +124,13 @@ margin-top: var(--large);
 #playlist {
   border-top-left-radius: var(--radius-small);
   border-bottom-left-radius: var(--radius-small);
+  padding: var(--small);
 }
 
 .column {
+  position: relative;
   background-color: var(--white);
+  background-color: transparent;
   min-height: 80vh;
   box-shadow: 0 0 10px 1px var(--darkgrey);
 }

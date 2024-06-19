@@ -27,7 +27,6 @@ header {
   position: relative;
   min-height: 15vh;
   background-color: var(--grey);
-  z-index: -2;
 }
 
 main {
@@ -59,6 +58,7 @@ input#theme-switch {
   border-radius: 50px;
   box-shadow: inset -20px 0 0 0 var(--white);
   transition: all 0.5s;
+  cursor: pointer;
 }
 
 input#theme-switch::after {

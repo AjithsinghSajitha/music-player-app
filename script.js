@@ -49,7 +49,7 @@ const songs = [
     artist: "Powfu",
     img: "https://samplesongs.netlify.app/album-arts/death-bed.jpg",
     genre: "Unknown", // Genre not provided in the original data
-    source: "https://samplesongs.netlify.app/Death%20Bed.mp3"
+    source: "https://samplesongs.netlify.app/Death%20Bed.mp3",
   },
   {
     id: 7,
@@ -57,7 +57,7 @@ const songs = [
     artist: "Imagine Dragons",
     img: "https://samplesongs.netlify.app/album-arts/bad-liar.jpg",
     genre: "Unknown", // Genre not provided in the original data
-    source: "https://samplesongs.netlify.app/Bad%20Liar.mp3"
+    source: "https://samplesongs.netlify.app/Bad%20Liar.mp3",
   },
   {
     id: 8,
@@ -65,7 +65,7 @@ const songs = [
     artist: "Alan Walker",
     img: "https://samplesongs.netlify.app/album-arts/faded.jpg",
     genre: "Unknown", // Genre not provided in the original data
-    source: "https://samplesongs.netlify.app/Faded.mp3"
+    source: "https://samplesongs.netlify.app/Faded.mp3",
   },
   {
     id: 9,
@@ -73,7 +73,7 @@ const songs = [
     artist: "Ellie Goulding",
     img: "https://samplesongs.netlify.app/album-arts/hate-me.jpg",
     genre: "Unknown", // Genre not provided in the original data
-    source: "https://samplesongs.netlify.app/Hate%20Me.mp3"
+    source: "https://samplesongs.netlify.app/Hate%20Me.mp3",
   },
   {
     id: 10,
@@ -81,7 +81,7 @@ const songs = [
     artist: "Clean Bandit",
     img: "https://samplesongs.netlify.app/album-arts/solo.jpg",
     genre: "Unknown", // Genre not provided in the original data
-    source: "https://samplesongs.netlify.app/Solo.mp3"
+    source: "https://samplesongs.netlify.app/Solo.mp3",
   },
   {
     id: 11,
@@ -89,29 +89,30 @@ const songs = [
     artist: "Halsey",
     img: "https://samplesongs.netlify.app/album-arts/without-me.jpg",
     genre: "Unknown", // Genre not provided in the original data
-    source: "https://samplesongs.netlify.app/Without%20Me.mp3"
-  }
+    source: "https://samplesongs.netlify.app/Without%20Me.mp3",
+  },
 ];
 
 let genreList = [];
 const songList = document.getElementById("song-list");
 const filterList = document.getElementById("filters");
-const switchTheme = document.getElementById("theme");
+const switchTheme = document.getElementById("theme-switch");
 const albumImage = document.getElementById("album-image");
-const root = document.querySelector(':root');
+const root = document.querySelector(":root");
+const nextBtn = document.getElementById('next');
+const prevBtn = document.getElementById('prev');
 
 const updateSongList = (songs) => {
   songList.innerHTML = "";
   songs.map((song) => {
     let div = document.createElement("div");
-    let player = document.getElementById("player");
+    
 
     div.innerText = song.name;
     div.classList.add("song");
     div.addEventListener("click", () => {
-      player.src = song.source;
-      albumImage.setAttribute('src',song.img)
-      player.play();
+      playMusic(song);
+
     });
 
     songList.append(div);
@@ -144,7 +145,54 @@ const setGenreList = () => {
   });
 };
 
+const changeTheme = () => {
+  switchTheme.addEventListener("change", function () {
+    if (this.checked) {
+      root.style.setProperty("--theme-background", "var(--white)");
+      root.style.setProperty("--theme-foreground", "var(--grey)");
+    } 
+     if(!this.checked){
+      root.style.setProperty("--theme-background", "var(--grey)");
+      root.style.setProperty("--theme-foreground", "var(--white)");
+    }
+  });
+}
+
+const nextSong = (songs, currentSongId) =>{
+  if(songs.length <=currentSongId+1){
+    nextBtn.disabled = true;
+  }
+  let song = songs.find(song=>song.id === currentSongId+1);
+  playMusic(song);
+}
+
+const prevSong = (songs, currentSongId) =>{
+  if(songs.length <=currentSongId-1){
+    prevBtn.disabled = true;
+  }
+  let song = songs.find(song=>song.id === currentSongId-1);
+  playMusic(song);
+}
+
+const playMusic = (song) =>{
+  let player = document.getElementById("player");
+  player.src = song.source;
+  albumImage.setAttribute("src", song.img);
+  player.play();
+  if(song){
+    nextBtn.addEventListener('click',()=>{
+      nextSong(songs,song.id)
+    });
+    prevBtn.addEventListener('click',()=>{
+      prevSong(songs,song.id)
+    });
+  }
+}
+
+
+
 (function init() {
+  changeTheme();
   updateSongList(songs);
   setGenreList();
   filteredSongs();

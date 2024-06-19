@@ -3,7 +3,8 @@
   --white: #ffffff;
   --grey: grey;
   --darkgrey: rgb(105, 104, 104);
-  --lime-green: #4ed164;
+
+  --switch-on: var(--grey);
   --theme-background: var(--grey);
   --theme-foreground: var(--white);
 
@@ -30,7 +31,6 @@ header {
   display: flex;
   position: relative;
   min-height: 15vh;
-  background-color: var(--grey);
   max-width: 1000px;
 }
 
@@ -49,7 +49,6 @@ header h1 {
   margin: auto;
   text-align: center;
   padding-left: var(--ex-large);
-  color: var(--white);
 }
 
 input#theme-switch {
@@ -81,8 +80,8 @@ input#theme-switch::after {
 }
 
 input#theme-switch:checked {
-  border-color: var(--lime-green);
-  box-shadow: inset 20px 0 0 0 var(--lime-green);
+  border-color: var(--switch-on);
+  box-shadow: inset 20px 0 0 0 var(--switch-on);
 }
 
 input#theme-switch:checked::after {

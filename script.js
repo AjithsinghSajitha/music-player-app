@@ -97,6 +97,7 @@ let genreList = [];
 const songList = document.getElementById("song-list");
 const filterList = document.getElementById("filters");
 const switchTheme = document.getElementById("theme");
+const albumImage = document.getElementById("album-image");
 
 const updateSongList = (songs) => {
   songList.innerHTML = "";
@@ -108,6 +109,7 @@ const updateSongList = (songs) => {
     div.classList.add("song");
     div.addEventListener("click", () => {
       player.src = song.source;
+      albumImage.setAttribute('src',song.img)
       player.play();
     });
 

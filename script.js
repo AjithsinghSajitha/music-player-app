@@ -43,6 +43,54 @@ const songs = [
     source:
       "https://codeskulptor-demos.commondatastorage.googleapis.com/descent/background%20music.mp3",
   },
+  {
+    id: 6,
+    name: "Death Bed",
+    artist: "Powfu",
+    img: "https://samplesongs.netlify.app/album-arts/death-bed.jpg",
+    genre: "Unknown", // Genre not provided in the original data
+    source: "https://samplesongs.netlify.app/Death%20Bed.mp3"
+  },
+  {
+    id: 7,
+    name: "Bad Liar",
+    artist: "Imagine Dragons",
+    img: "https://samplesongs.netlify.app/album-arts/bad-liar.jpg",
+    genre: "Unknown", // Genre not provided in the original data
+    source: "https://samplesongs.netlify.app/Bad%20Liar.mp3"
+  },
+  {
+    id: 8,
+    name: "Faded",
+    artist: "Alan Walker",
+    img: "https://samplesongs.netlify.app/album-arts/faded.jpg",
+    genre: "Unknown", // Genre not provided in the original data
+    source: "https://samplesongs.netlify.app/Faded.mp3"
+  },
+  {
+    id: 9,
+    name: "Hate Me",
+    artist: "Ellie Goulding",
+    img: "https://samplesongs.netlify.app/album-arts/hate-me.jpg",
+    genre: "Unknown", // Genre not provided in the original data
+    source: "https://samplesongs.netlify.app/Hate%20Me.mp3"
+  },
+  {
+    id: 10,
+    name: "Solo",
+    artist: "Clean Bandit",
+    img: "https://samplesongs.netlify.app/album-arts/solo.jpg",
+    genre: "Unknown", // Genre not provided in the original data
+    source: "https://samplesongs.netlify.app/Solo.mp3"
+  },
+  {
+    id: 11,
+    name: "Without Me",
+    artist: "Halsey",
+    img: "https://samplesongs.netlify.app/album-arts/without-me.jpg",
+    genre: "Unknown", // Genre not provided in the original data
+    source: "https://samplesongs.netlify.app/Without%20Me.mp3"
+  }
 ];
 
 let genreList = [];

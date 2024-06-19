@@ -9,7 +9,7 @@
   <body>
     <header>
         <h1>Music Player</h1>
-        <button id="theme">Toggle</button>
+        <input id="theme-switch" type="checkbox"></input>
     </header>
     <main>
       <div id="songs" class="column">
@@ -24,7 +24,7 @@
         <div id="song-list">
         </div>
       </div>
-      <div class="column">
+      <div class="column" id="player-container">
         <audio controls id="player" >
             <source id="play-music" src="" type="audio/ogg">
             Your browser does not support the audio element.

@@ -3,8 +3,11 @@
   --white: #ffffff;
   --grey: grey;
   --darkgrey: rgb(105, 104, 104);
+  --lime-green: #4ED164;
+
   --ex-small: 3px;
   --small: 5px;
+  --radius-small: 5px;
   --medium: 10px;
   --large: 25px;
   --ex-large: 50px;
@@ -19,10 +22,10 @@ body {
   background: var(--grey);
 }
 header {
-  background-color: var(--grey);
-  min-height: 15vh;
   display: flex;
   position: relative;
+  min-height: 15vh;
+  background-color: var(--grey);
 }
 
 main {
@@ -40,16 +43,44 @@ header h1 {
   color: var(--white);
 }
 
-#theme {
-  position: absolute;
+
+input#theme-switch{
+  position: relative;
+  appearance: none;
+  outline: none;
+  width: 50px;
+  height: 30px;
   top: 6vh;
-  height: var(--large);
   right: var(--large);
+  background-color: var(--white);
+  border: 1px solid var(--grey);
+  border-radius: 50px;
+  box-shadow: inset -20px 0 0 0 var(--white);
+  transition: all .5s;
+}
+
+input#theme-switch::after{
+  content: "";
+  position: absolute;
+  top: 1px; left: 1px;
+  width: 26px; height: 26px;
+  background-color: transparent;
+  border-radius: 50%; box-shadow: 2px 4px 6px rgba(0,0,0,0.2);
+}
+
+input#theme-switch:checked{
+border-color: var(--lime-green);
+box-shadow: inset 20px 0 0 0 var(--lime-green);
+}
+
+input#theme-switch:checked::after{
+    left: 20px;
+    box-shadow: -2px 4px 3px rgba(0,0,0,0.05); 
 }
 
 #songs {
-  border-top-right-radius: var(--small);
-  border-bottom-right-radius: var(--small);
+  border-top-right-radius: var(--radius-small);
+  border-bottom-right-radius: var(--radius-small);
   padding: var(--small);
 }
 
@@ -68,13 +99,13 @@ header h1 {
   cursor: pointer;
 }
 
-#player {
-  border-radius: var(--small);
+#player-container {
+  border-radius: var(--radius-small);
 }
 
 #playlist {
-  border-top-left-radius: var(--small);
-  border-bottom-left-radius: var(--small);
+  border-top-left-radius: var(--radius-small);
+  border-bottom-left-radius: var(--radius-small);
 }
 
 .column {

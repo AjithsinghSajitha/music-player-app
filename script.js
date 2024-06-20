@@ -98,6 +98,7 @@ let allPlaylist =[];
 
 const songList = document.getElementById("song-list");
 const playList = document.getElementById("all-playlist");
+const currentPlaylist = document.getElementById("current-playlist");
 const filterList = document.getElementById("filters");
 const switchTheme = document.getElementById("theme-switch");
 const albumImage = document.getElementById("album-image");
@@ -105,13 +106,13 @@ const root = document.querySelector(":root");
 const nextBtn = document.getElementById('next');
 const prevBtn = document.getElementById('prev');
 const createPlaylistBtn = document.getElementById('create-playlist');
+const addToPlaylist = document.getElementById('add-to-playlist');
 
-const updateSongList = (songs) => {
-  songList.innerHTML = "";
+const updateSongList = (songs,elementUpdated) => {
+  elementUpdated.innerHTML = "";
   songs.map((song) => {
     let div = document.createElement("div");
     
-
     div.innerText = song.name;
     div.classList.add("song");
     div.addEventListener("click", () => {
@@ -119,7 +120,7 @@ const updateSongList = (songs) => {
 
     });
 
-    songList.append(div);
+    elementUpdated.append(div);
   });
 };
 
@@ -131,8 +132,8 @@ const filteredSongs = () => {
     );
 
     e.target.value.toLocaleLowerCase() == "all"
-      ? updateSongList(songs)
-      : updateSongList(filteredSongsList);
+      ? updateSongList(songs,songList)
+      : updateSongList(filteredSongsList,songList);
   });
 };
 
@@ -192,23 +193,31 @@ const playMusic = (song) =>{
     nextBtn.addEventListener('click',()=>{nextSong(songs,song)}, { once: true });
     prevBtn.addEventListener('click',()=>{prevSong(songs,song)}, { once: true });
   }
+
+  addToPlaylist.addEventListener('click', ()=>{
+    allPlaylist[0].list.push(song);
+  },{ once: true });
   
 }
 
 const cratePlaylist = () =>{
-  let newPlaylistName = document.getElementById('new-playlist-name');
+  let newPlaylistName = document.getElementById('new-playlist-name').value;
   let div = document.createElement('div');
-  div.innerHTML = `${newPlaylistName.value}`; 
+
+  div.innerHTML = newPlaylistName; 
   div.classList.add('playlist');
   playList.append(div);
+  allPlaylist.push({'name':newPlaylistName, 'list': []});
+  div.addEventListener('click', ()=>{
+    updateSongList(allPlaylist[allPlaylist.length - 1].list,currentPlaylist)
+  });
 }
 
 createPlaylistBtn.addEventListener('click', cratePlaylist);
 
-
 (function init() {
   changeTheme();
-  updateSongList(songs);
+  updateSongList(songs,songList);
   setGenreList();
   filteredSongs();
 })();

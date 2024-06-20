@@ -94,13 +94,17 @@ const songs = [
 ];
 
 let genreList = [];
+let allPlaylist =[];
+
 const songList = document.getElementById("song-list");
+const playList = document.getElementById("all-playlist");
 const filterList = document.getElementById("filters");
 const switchTheme = document.getElementById("theme-switch");
 const albumImage = document.getElementById("album-image");
 const root = document.querySelector(":root");
 const nextBtn = document.getElementById('next');
 const prevBtn = document.getElementById('prev');
+const createPlaylistBtn = document.getElementById('create-playlist');
 
 const updateSongList = (songs) => {
   songList.innerHTML = "";
@@ -176,7 +180,6 @@ const prevSong = (songs, currentSong) =>{
     playMusic(songs[songIndex-1]);
 }
 
-
 const playMusic = (song) =>{
   let player = document.getElementById("player");
   player.src = song.source;
@@ -191,6 +194,17 @@ const playMusic = (song) =>{
   }
   
 }
+
+const cratePlaylist = () =>{
+  let newPlaylistName = document.getElementById('new-playlist-name');
+  let div = document.createElement('div');
+  div.innerHTML = `${newPlaylistName.value}`; 
+  div.classList.add('playlist');
+  playList.append(div);
+}
+
+createPlaylistBtn.addEventListener('click', cratePlaylist);
+
 
 (function init() {
   changeTheme();

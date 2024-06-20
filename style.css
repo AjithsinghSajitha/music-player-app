@@ -133,6 +133,17 @@ margin-top: var(--large);
   padding: var(--small);
 }
 
+.playlist{
+  background-color: var(--blue);
+  border-radius: var(--small);
+  height: var(--ex-large);
+  margin-top: var(--small);
+  padding-left: var(--small);
+  padding-top: var(--ex-small);
+  color: var(--white);
+  cursor: pointer;
+}
+
 .column {
   position: relative;
   background-color: var(--white);

@@ -158,38 +158,39 @@ const changeTheme = () => {
   });
 }
 
-const nextSong = (songs, currentSongId) =>{
-  if(songs.length <=currentSongId+1){
-    nextBtn.disabled = true;
-  }
-  let song = songs.find(song=>song.id === currentSongId+1);
-  playMusic(song);
+const nextSong = (songs, currentSong) =>{
+  let songIndex = songs.findIndex(song => song.id === currentSong.id);
+
+  if(songs[songs.length-1].id === currentSong.id)
+    playMusic(songs[0]);
+  else
+    playMusic(songs[songIndex+1]);
 }
 
-const prevSong = (songs, currentSongId) =>{
-  if(songs.length <=currentSongId-1){
-    prevBtn.disabled = true;
-  }
-  let song = songs.find(song=>song.id === currentSongId-1);
-  playMusic(song);
+const prevSong = (songs, currentSong) =>{
+  let songIndex = songs.findIndex(song => song.id === currentSong.id);
+
+  if(songs[0].id === currentSong.id)
+    playMusic(songs[songs.length-1]);
+  else
+    playMusic(songs[songIndex-1]);
 }
+
 
 const playMusic = (song) =>{
   let player = document.getElementById("player");
   player.src = song.source;
   albumImage.setAttribute("src", song.img);
+
+  player.pause();
   player.play();
+
   if(song){
-    nextBtn.addEventListener('click',()=>{
-      nextSong(songs,song.id)
-    });
-    prevBtn.addEventListener('click',()=>{
-      prevSong(songs,song.id)
-    });
+    nextBtn.addEventListener('click',()=>{nextSong(songs,song)}, { once: true });
+    prevBtn.addEventListener('click',()=>{prevSong(songs,song)}, { once: true });
   }
+  
 }
-
-
 
 (function init() {
   changeTheme();

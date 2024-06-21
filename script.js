@@ -95,6 +95,7 @@ const songs = [
 
 let genreList = [];
 let allPlaylist = [];
+let currentSongList;
 let selectedPlayList;
 let currentSongPlaying;
 

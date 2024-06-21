@@ -99,7 +99,7 @@ input#theme-switch:checked::after {
   margin-top: var(--medium);
 }
 
-#song-list .song {
+.song {
   background-color: var(--blue);
   border-radius: var(--small);
   height: var(--large);

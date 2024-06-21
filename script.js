@@ -94,7 +94,9 @@ const songs = [
 ];
 
 let genreList = [];
-let allPlaylist =[];
+let allPlaylist = [];
+let selectedPlayList;
+let currentSongPlaying;
 
 const songList = document.getElementById("song-list");
 const playList = document.getElementById("all-playlist");
@@ -103,21 +105,20 @@ const filterList = document.getElementById("filters");
 const switchTheme = document.getElementById("theme-switch");
 const albumImage = document.getElementById("album-image");
 const root = document.querySelector(":root");
-const nextBtn = document.getElementById('next');
-const prevBtn = document.getElementById('prev');
-const createPlaylistBtn = document.getElementById('create-playlist');
-const addToPlaylist = document.getElementById('add-to-playlist');
+const nextBtn = document.getElementById("next");
+const prevBtn = document.getElementById("prev");
+const createPlaylistBtn = document.getElementById("create-playlist");
+const addToPlaylist = document.getElementById("add-to-playlist");
 
-const updateSongList = (songs,elementUpdated) => {
+const updateSongList = (songs, elementUpdated) => {
   elementUpdated.innerHTML = "";
   songs.map((song) => {
     let div = document.createElement("div");
-    
+
     div.innerText = song.name;
     div.classList.add("song");
     div.addEventListener("click", () => {
       playMusic(song);
-
     });
 
     elementUpdated.append(div);
@@ -132,8 +133,8 @@ const filteredSongs = () => {
     );
 
     e.target.value.toLocaleLowerCase() == "all"
-      ? updateSongList(songs,songList)
-      : updateSongList(filteredSongsList,songList);
+      ? updateSongList(songs, songList)
+      : updateSongList(filteredSongsList, songList);
   });
 };
 
@@ -155,33 +156,29 @@ const changeTheme = () => {
     if (this.checked) {
       root.style.setProperty("--theme-background", "var(--white)");
       root.style.setProperty("--theme-foreground", "var(--grey)");
-    } 
-     if(!this.checked){
+    }
+    if (!this.checked) {
       root.style.setProperty("--theme-background", "var(--grey)");
       root.style.setProperty("--theme-foreground", "var(--white)");
     }
   });
-}
+};
 
-const nextSong = (songs, currentSong) =>{
-  let songIndex = songs.findIndex(song => song.id === currentSong.id);
+const nextSong = (songs, currentSong) => {
+  let songIndex = songs.findIndex((song) => song.id === currentSong.id);
 
-  if(songs[songs.length-1].id === currentSong.id)
-    playMusic(songs[0]);
-  else
-    playMusic(songs[songIndex+1]);
-}
+  if (songs[songs.length - 1].id === currentSong.id) playMusic(songs[0]);
+  else playMusic(songs[songIndex + 1]);
+};
 
-const prevSong = (songs, currentSong) =>{
-  let songIndex = songs.findIndex(song => song.id === currentSong.id);
+const prevSong = (songs, currentSong) => {
+  let songIndex = songs.findIndex((song) => song.id === currentSong.id);
 
-  if(songs[0].id === currentSong.id)
-    playMusic(songs[songs.length-1]);
-  else
-    playMusic(songs[songIndex-1]);
-}
+  if (songs[0].id === currentSong.id) playMusic(songs[songs.length - 1]);
+  else playMusic(songs[songIndex - 1]);
+};
 
-const playMusic = (song) =>{
+const playMusic = (song) => {
   let player = document.getElementById("player");
   player.src = song.source;
   albumImage.setAttribute("src", song.img);
@@ -189,35 +186,70 @@ const playMusic = (song) =>{
   player.pause();
   player.play();
 
-  if(song){
-    nextBtn.addEventListener('click',()=>{nextSong(songs,song)}, { once: true });
-    prevBtn.addEventListener('click',()=>{prevSong(songs,song)}, { once: true });
+  if (song) {
+    nextBtn.addEventListener(
+      "click",
+      () => {
+        nextSong(songs, song);
+      },
+      { once: true }
+    );
+    prevBtn.addEventListener(
+      "click",
+      () => {
+        prevSong(songs, song);
+      },
+      { once: true }
+    );
   }
+  currentSongPlaying = song;
+};
 
-  addToPlaylist.addEventListener('click', ()=>{
-    allPlaylist[0].list.push(song);
-  },{ once: true });
-  
-}
+const addSongsToPlaylist = () => {
+  addToPlaylist.addEventListener("click", () => {
+    let div = document.createElement("div");
+    // && allPlaylist[selectedPlayList].list.findIndex(s => s.id === song.id) === -1
+    if (selectedPlayList || selectedPlayList === 0) {
 
-const cratePlaylist = () =>{
-  let newPlaylistName = document.getElementById('new-playlist-name').value;
-  let div = document.createElement('div');
+      if(allPlaylist[selectedPlayList].list.findIndex(s => s.id === currentSongPlaying.id) === -1){
+        allPlaylist[selectedPlayList].list.push(currentSongPlaying);
 
-  div.innerHTML = newPlaylistName; 
-  div.classList.add('playlist');
-  playList.append(div);
-  allPlaylist.push({'name':newPlaylistName, 'list': []});
-  div.addEventListener('click', ()=>{
-    updateSongList(allPlaylist[allPlaylist.length - 1].list,currentPlaylist)
+        div.innerText = currentSongPlaying.name;
+        div.classList.add("song");
+        div.addEventListener("click", () => {
+          playMusic(currentSongPlaying);
+        });
+        currentPlaylist.append(div);
+        console.log(allPlaylist[selectedPlayList].list.findIndex(s => s.id === currentSongPlaying.id));
+        console.log(allPlaylist[selectedPlayList].list);
+      }
+      
+    }
   });
-}
+};
 
-createPlaylistBtn.addEventListener('click', cratePlaylist);
+const cratePlaylist = () => {
+  let newPlaylistName = document.getElementById("new-playlist-name").value;
+  let div = document.createElement("div");
+  let listId = allPlaylist.length;
+
+  div.innerHTML = newPlaylistName;
+  div.classList.add("playlist");
+  playList.append(div);
+  div.setAttribute("playlist-id", listId);
+  allPlaylist.push({ name: newPlaylistName, list: [] });
+  div.addEventListener("click", () => {
+    updateSongList(allPlaylist[listId].list, currentPlaylist);
+    selectedPlayList = listId;
+  });
+};
+
+createPlaylistBtn.addEventListener("click", cratePlaylist);
 
 (function init() {
   changeTheme();
-  updateSongList(songs,songList);
+  updateSongList(songs, songList);
   setGenreList();
   filteredSongs();
+  addSongsToPlaylist();
 })();

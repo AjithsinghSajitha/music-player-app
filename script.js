@@ -128,6 +128,7 @@ const updateSongList = (songs, elementUpdated) => {
   });
 };
 
+//This will filter the all songs using the genre 
 const filteredSongs = () => {
   filterList.addEventListener("change", (e) => {
     let filteredSongsList = songs.filter(

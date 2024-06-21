@@ -111,6 +111,8 @@ const prevBtn = document.getElementById("prev");
 const createPlaylistBtn = document.getElementById("create-playlist");
 const addToPlaylist = document.getElementById("add-to-playlist");
 
+
+//This will update the song list and create a div for each song.
 const updateSongList = (songs, elementUpdated) => {
   elementUpdated.innerHTML = "";
   songs.map((song) => {

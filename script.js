@@ -212,7 +212,6 @@ const playMusic = (song) => {
 const addSongsToPlaylist = () => {
   addToPlaylist.addEventListener("click", () => {
     let div = document.createElement("div");
-    // && allPlaylist[selectedPlayList].list.findIndex(s => s.id === song.id) === -1
     if (selectedPlayList || selectedPlayList === 0) {
 
       if(allPlaylist[selectedPlayList].list.findIndex(s => s.id === currentSongPlaying.id) === -1){

@@ -249,6 +249,9 @@ const cratePlaylist = () => {
 };
 
 createPlaylistBtn.addEventListener("click", cratePlaylist);
+songList.addEventListener('click',()=>{
+  currentSongList = songs;
+});
 
 (function init() {
   changeTheme();

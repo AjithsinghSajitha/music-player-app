@@ -151,3 +151,26 @@ margin-top: var(--large);
   min-height: 80vh;
   box-shadow: 0 0 10px 1px var(--darkgrey);
 }
+
+#next, #prev {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border:none;
+  margin: var(--small);
+  transition: all .3s;
+  background-color: var(--blue);
+  color: var(--white);
+}
+
+#next:hover, #prev:hover {
+  background-color: #1e8fff71;
+}
+
+#next{
+
+}
+
+#prev{
+
+}

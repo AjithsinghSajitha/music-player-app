@@ -127,6 +127,11 @@ input#theme-switch:checked::after {
 margin-top: var(--large);
 }
 
+#album-image{
+  width: 100%;
+  min-height: 50%;
+}
+
 #playlist {
   border-top-left-radius: var(--radius-small);
   border-bottom-left-radius: var(--radius-small);
@@ -153,8 +158,8 @@ margin-top: var(--large);
 }
 
 #next, #prev {
-  width: 50px;
-  height: 50px;
+  width: var(--ex-large);
+  height: var(--ex-large);
   border-radius: 50%;
   border:none;
   margin: var(--small);
@@ -167,10 +172,15 @@ margin-top: var(--large);
   background-color: #1e8fff71;
 }
 
-#next{
-
+#add-to-playlist{
+  height: var(--large);
+  border:none;
+  margin: var(--small);
+  transition: all .3s;
+  background-color: var(--blue);
+  color: var(--white);
 }
 
-#prev{
-
+#add-to-playlist:hover{
+  background-color: #1e8fff71;
 }

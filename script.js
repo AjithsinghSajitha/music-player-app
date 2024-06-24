@@ -95,7 +95,7 @@ const songs = [
 
 let genreList = [];
 let allPlaylist = [];
-let currentSongList;
+let currentSongList = songs;
 let selectedPlayList;
 let currentSongPlaying;
 
@@ -194,14 +194,14 @@ const playMusic = (song) => {
     nextBtn.addEventListener(
       "click",
       () => {
-        nextSong(songs, song);
+        nextSong(currentSongList, song);
       },
       { once: true }
     );
     prevBtn.addEventListener(
       "click",
       () => {
-        prevSong(songs, song);
+        prevSong(currentSongList, song);
       },
       { once: true }
     );
@@ -227,7 +227,6 @@ const addSongsToPlaylist = () => {
         console.log(allPlaylist[selectedPlayList].list.findIndex(s => s.id === currentSongPlaying.id));
         console.log(allPlaylist[selectedPlayList].list);
       }
-      
     }
   });
 };
@@ -245,6 +244,7 @@ const cratePlaylist = () => {
   div.addEventListener("click", () => {
     updateSongList(allPlaylist[listId].list, currentPlaylist);
     selectedPlayList = listId;
+    currentSongList = allPlaylist[listId].list;
   });
 };
 

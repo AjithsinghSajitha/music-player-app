@@ -113,8 +113,8 @@ const addToPlaylist = document.getElementById("add-to-playlist");
 
 
 //This will update the song list and create a div for each song.
-const updateSongList = (songs, elementUpdated) => {
-  elementUpdated.innerHTML = "";
+const updateSongList = (songs, element) => {
+  element.innerHTML = "";
   songs.map((song) => {
     let div = document.createElement("div");
 
@@ -124,7 +124,7 @@ const updateSongList = (songs, elementUpdated) => {
       playMusic(song);
     });
 
-    elementUpdated.append(div);
+    element.append(div);
   });
 };
 

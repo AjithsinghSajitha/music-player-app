@@ -166,9 +166,10 @@ margin-top: var(--large);
   transition: all .3s;
   background-color: var(--blue);
   color: var(--white);
+  cursor: pointer;
 }
 
-#next:hover, #prev:hover {
+#next:hover, #prev:hover, #add-to-playlist:hover {
   background-color: #1e8fff71;
 }
 
@@ -179,8 +180,13 @@ margin-top: var(--large);
   transition: all .3s;
   background-color: var(--blue);
   color: var(--white);
+  cursor: pointer;
+  border-radius: var(--small);
 }
 
-#add-to-playlist:hover{
-  background-color: #1e8fff71;
+
+#create-playlist{
+  border:none;
+  background-color: var(--blue);
+  color: var(--white);
 }

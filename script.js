@@ -4,7 +4,7 @@ const songs = [
     name: "Death Bed",
     artist: "Powfu",
     img: "https://samplesongs.netlify.app/album-arts/death-bed.jpg",
-    genre: "Rock", 
+    genre: "Rock",
     source: "https://samplesongs.netlify.app/Death%20Bed.mp3",
   },
   {
@@ -12,7 +12,7 @@ const songs = [
     name: "Bad Liar",
     artist: "Imagine Dragons",
     img: "https://samplesongs.netlify.app/album-arts/bad-liar.jpg",
-    genre: "Classic", 
+    genre: "Classic",
     source: "https://samplesongs.netlify.app/Bad%20Liar.mp3",
   },
   {
@@ -20,7 +20,7 @@ const songs = [
     name: "Faded",
     artist: "Alan Walker",
     img: "https://samplesongs.netlify.app/album-arts/faded.jpg",
-    genre: "Rock", 
+    genre: "Rock",
     source: "https://samplesongs.netlify.app/Faded.mp3",
   },
   {
@@ -28,7 +28,7 @@ const songs = [
     name: "Hate Me",
     artist: "Ellie Goulding",
     img: "https://samplesongs.netlify.app/album-arts/hate-me.jpg",
-    genre: "Unknown", 
+    genre: "Unknown",
     source: "https://samplesongs.netlify.app/Hate%20Me.mp3",
   },
   {
@@ -36,7 +36,7 @@ const songs = [
     name: "Solo",
     artist: "Clean Bandit",
     img: "https://samplesongs.netlify.app/album-arts/solo.jpg",
-    genre: "Classic", 
+    genre: "Classic",
     source: "https://samplesongs.netlify.app/Solo.mp3",
   },
   {
@@ -44,7 +44,7 @@ const songs = [
     name: "Without Me",
     artist: "Halsey",
     img: "https://samplesongs.netlify.app/album-arts/without-me.jpg",
-    genre: "Classic", 
+    genre: "Classic",
     source: "https://samplesongs.netlify.app/Without%20Me.mp3",
   },
 ];

@@ -173,17 +173,15 @@ const playMusic = (song) => {
 const addSongsToPlaylist = () => {
   addToPlaylist.addEventListener("click", () => {
     let div = document.createElement("div");
-    console.log("hello");
 
     if (selectedPlayList || selectedPlayList === 0) {
-      console.log("hello1");
       if (
         allPlaylist[selectedPlayList].list.findIndex(
           (s) => s.id === currentSongPlaying.id
         ) === -1
       ) {
         allPlaylist[selectedPlayList].list.push(currentSongPlaying);
-        console.log("hello3");
+
         div.innerText = currentSongPlaying.name;
         div.setAttribute("playlist-id", currentPlayListId);
         div.classList.add("song");

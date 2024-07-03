@@ -129,6 +129,7 @@ const changeTheme = () => {
   });
 };
 
+//next song
 const nextSong = (songs, currentSong) => {
   let songIndex = songs.findIndex((song) => song.id === currentSong.id);
 
@@ -136,6 +137,7 @@ const nextSong = (songs, currentSong) => {
   else playMusic(songs[songIndex + 1]);
 };
 
+//previous song
 const prevSong = (songs, currentSong) => {
   let songIndex = songs.findIndex((song) => song.id === currentSong.id);
 

@@ -4,7 +4,7 @@ const songs = [
     name: "Death Bed",
     artist: "Powfu",
     img: "https://samplesongs.netlify.app/album-arts/death-bed.jpg",
-    genre: "Unknown", // Genre not provided in the original data
+    genre: "Rock", 
     source: "https://samplesongs.netlify.app/Death%20Bed.mp3",
   },
   {
@@ -12,7 +12,7 @@ const songs = [
     name: "Bad Liar",
     artist: "Imagine Dragons",
     img: "https://samplesongs.netlify.app/album-arts/bad-liar.jpg",
-    genre: "Unknown", // Genre not provided in the original data
+    genre: "Classic", 
     source: "https://samplesongs.netlify.app/Bad%20Liar.mp3",
   },
   {
@@ -20,7 +20,7 @@ const songs = [
     name: "Faded",
     artist: "Alan Walker",
     img: "https://samplesongs.netlify.app/album-arts/faded.jpg",
-    genre: "Unknown", // Genre not provided in the original data
+    genre: "Rock", 
     source: "https://samplesongs.netlify.app/Faded.mp3",
   },
   {
@@ -28,7 +28,7 @@ const songs = [
     name: "Hate Me",
     artist: "Ellie Goulding",
     img: "https://samplesongs.netlify.app/album-arts/hate-me.jpg",
-    genre: "Unknown", // Genre not provided in the original data
+    genre: "Unknown", 
     source: "https://samplesongs.netlify.app/Hate%20Me.mp3",
   },
   {
@@ -36,7 +36,7 @@ const songs = [
     name: "Solo",
     artist: "Clean Bandit",
     img: "https://samplesongs.netlify.app/album-arts/solo.jpg",
-    genre: "Unknown", // Genre not provided in the original data
+    genre: "Classic", 
     source: "https://samplesongs.netlify.app/Solo.mp3",
   },
   {
@@ -44,7 +44,7 @@ const songs = [
     name: "Without Me",
     artist: "Halsey",
     img: "https://samplesongs.netlify.app/album-arts/without-me.jpg",
-    genre: "Unknown", // Genre not provided in the original data
+    genre: "Classic", 
     source: "https://samplesongs.netlify.app/Without%20Me.mp3",
   },
 ];
@@ -54,6 +54,7 @@ let allPlaylist = [];
 let currentSongList = songs;
 let selectedPlayList;
 let currentSongPlaying;
+let currentPlayListId;
 
 const songList = document.getElementById("song-list");
 const playList = document.getElementById("all-playlist");
@@ -67,24 +68,25 @@ const prevBtn = document.getElementById("prev");
 const createPlaylistBtn = document.getElementById("create-playlist");
 const addToPlaylist = document.getElementById("add-to-playlist");
 
-
 //This will update the song list and create a div for each song.
-const updateSongList = (songs, element) => {
+const updateSongList = (songs, element, id = -1) => {
   element.innerHTML = "";
   songs.map((song) => {
     let div = document.createElement("div");
 
     div.innerText = song.name;
+    div.setAttribute("playlist-id", id);
     div.classList.add("song");
     div.addEventListener("click", () => {
       playMusic(song);
+      if (allPlaylist[id].list) currentSongList = allPlaylist[id].list;
     });
 
     element.append(div);
   });
 };
 
-//This will filter the all songs using the genre 
+//This will filter the all songs using the genre
 const filteredSongs = () => {
   filterList.addEventListener("change", (e) => {
     let filteredSongsList = songs.filter(
@@ -111,6 +113,7 @@ const setGenreList = () => {
   });
 };
 
+//switch the theme
 const changeTheme = () => {
   switchTheme.addEventListener("change", function () {
     if (this.checked) {
@@ -138,6 +141,7 @@ const prevSong = (songs, currentSong) => {
   else playMusic(songs[songIndex - 1]);
 };
 
+//play the selected music
 const playMusic = (song) => {
   let player = document.getElementById("player");
   player.src = song.source;
@@ -165,28 +169,36 @@ const playMusic = (song) => {
   currentSongPlaying = song;
 };
 
+//Add each song playing to playlist and when click on the song the current list is updated
 const addSongsToPlaylist = () => {
   addToPlaylist.addEventListener("click", () => {
     let div = document.createElement("div");
+    console.log("hello");
+
     if (selectedPlayList || selectedPlayList === 0) {
-
-      if(allPlaylist[selectedPlayList].list.findIndex(s => s.id === currentSongPlaying.id) === -1){
+      console.log("hello1");
+      if (
+        allPlaylist[selectedPlayList].list.findIndex(
+          (s) => s.id === currentSongPlaying.id
+        ) === -1
+      ) {
         allPlaylist[selectedPlayList].list.push(currentSongPlaying);
-
+        console.log("hello3");
         div.innerText = currentSongPlaying.name;
+        div.setAttribute("playlist-id", currentPlayListId);
         div.classList.add("song");
         div.addEventListener("click", () => {
           playMusic(currentSongPlaying);
+          currentSongList = allPlaylist[currentPlayListId].list;
         });
         currentPlaylist.append(div);
-        console.log(allPlaylist[selectedPlayList].list.findIndex(s => s.id === currentSongPlaying.id));
-        console.log(allPlaylist[selectedPlayList].list);
       }
     }
   });
 };
 
-const cratePlaylist = () => {
+//Creates playlist and update the song list when clicked on the list
+const createPlaylist = () => {
   let newPlaylistName = document.getElementById("new-playlist-name").value;
   let div = document.createElement("div");
   let listId = allPlaylist.length;
@@ -197,14 +209,21 @@ const cratePlaylist = () => {
   div.setAttribute("playlist-id", listId);
   allPlaylist.push({ name: newPlaylistName, list: [] });
   div.addEventListener("click", () => {
-    updateSongList(allPlaylist[listId].list, currentPlaylist);
+    currentPlayListId = listId;
+    updateSongList(
+      allPlaylist[listId].list,
+      currentPlaylist,
+      currentPlayListId
+    );
     selectedPlayList = listId;
-    currentSongList = allPlaylist[listId].list;
   });
 };
 
-createPlaylistBtn.addEventListener("click", cratePlaylist);
-songList.addEventListener('click',()=>{
+//Create playlist
+createPlaylistBtn.addEventListener("click", createPlaylist);
+
+//update the current song list
+songList.addEventListener("click", () => {
   currentSongList = songs;
 });
 

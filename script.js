@@ -119,10 +119,12 @@ const changeTheme = () => {
     if (this.checked) {
       root.style.setProperty("--theme-background", "var(--white)");
       root.style.setProperty("--theme-foreground", "var(--grey)");
+      root.style.setProperty("--theme-button", "var(--violet)");
     }
     if (!this.checked) {
       root.style.setProperty("--theme-background", "var(--grey)");
       root.style.setProperty("--theme-foreground", "var(--white)");
+      root.style.setProperty("--theme-button", "var(--blue)");
     }
   });
 };

@@ -1,5 +1,6 @@
 :root {
   --blue: #1e90ff;
+  --violet: #8147a7;
   --white: #ffffff;
   --grey: grey;
   --darkgrey: rgb(105, 104, 104);
@@ -7,6 +8,7 @@
   --switch-on: var(--grey);
   --theme-background: var(--grey);
   --theme-foreground: var(--white);
+  --theme-button: var(--blue);
 
   --ex-small: 3px;
   --small: 5px;
@@ -100,7 +102,7 @@ input#theme-switch:checked::after {
 }
 
 .song {
-  background-color: var(--blue);
+  background-color: var(--theme-button);
   border-radius: var(--small);
   height: var(--large);
   margin-top: var(--small);
@@ -139,7 +141,7 @@ margin-top: var(--large);
 }
 
 .playlist{
-  background-color: var(--blue);
+  background-color: var(--theme-button);
   border-radius: var(--small);
   height: var(--ex-large);
   margin-top: var(--small);
@@ -164,7 +166,7 @@ margin-top: var(--large);
   border:none;
   margin: var(--small);
   transition: all .3s;
-  background-color: var(--blue);
+  background-color: var(--theme-button);
   color: var(--white);
   cursor: pointer;
 }
@@ -178,7 +180,7 @@ margin-top: var(--large);
   border:none;
   margin: var(--small);
   transition: all .3s;
-  background-color: var(--blue);
+  background-color: var(--theme-button);
   color: var(--white);
   cursor: pointer;
   border-radius: var(--small);
@@ -187,7 +189,7 @@ margin-top: var(--large);
 
 #create-playlist{
   border:none;
-  background-color: var(--blue);
+  background-color: var(--theme-button);
   color: var(--white);
   cursor: pointer;
 }

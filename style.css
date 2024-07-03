@@ -189,4 +189,5 @@ margin-top: var(--large);
   border:none;
   background-color: var(--blue);
   color: var(--white);
+  cursor: pointer;
 }

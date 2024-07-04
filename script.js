@@ -68,21 +68,24 @@ const prevBtn = document.getElementById("prev");
 const createPlaylistBtn = document.getElementById("create-playlist");
 const addToPlaylist = document.getElementById("add-to-playlist");
 
+//Create song element
+const createSongElement = (song, div, id) => {
+  div.innerText = song.name;
+  div.setAttribute("playlist-id", id);
+  div.classList.add("song");
+  div.addEventListener("click", () => {
+    playMusic(song);
+    if (allPlaylist[id].list) currentSongList = allPlaylist[id].list;
+  });
+  return div;
+}
+
 //This will update the song list and create a div for each song.
 const updateSongList = (songs, element, id = -1) => {
   element.innerHTML = "";
   songs.map((song) => {
     let div = document.createElement("div");
-
-    div.innerText = song.name;
-    div.setAttribute("playlist-id", id);
-    div.classList.add("song");
-    div.addEventListener("click", () => {
-      playMusic(song);
-      if (allPlaylist[id].list) currentSongList = allPlaylist[id].list;
-    });
-
-    element.append(div);
+    element.append(createSongElement(song, div, id));
   });
 };
 
@@ -185,15 +188,7 @@ const addSongsToPlaylist = () => {
         ) === -1
       ) {
         allPlaylist[selectedPlayList].list.push(currentSongPlaying);
-
-        div.innerText = currentSongPlaying.name;
-        div.setAttribute("playlist-id", currentPlayListId);
-        div.classList.add("song");
-        div.addEventListener("click", () => {
-          playMusic(currentSongPlaying);
-          currentSongList = allPlaylist[currentPlayListId].list;
-        });
-        currentPlaylist.append(div);
+        currentPlaylist.append(createSongElement(currentSongPlaying, div, currentPlayListId));
       }
     }
   });

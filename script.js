@@ -201,6 +201,10 @@ const renderCurrentSong = (song) => {
 const addSongsToPlaylist = () => {
   addToPlaylist.addEventListener("click", () => {
     let div = document.createElement("div");
+    let removeIcon = document.createElement('span')
+    let result;
+
+    removeIcon.innerHTML = `<i class="fa-solid fa-trash" song-id="${currentSongPlaying.id}"></i>`;
 
     if (selectedPlayList || selectedPlayList === 0) {
       if (
@@ -209,9 +213,14 @@ const addSongsToPlaylist = () => {
         ) === -1
       ) {
         allPlaylist[selectedPlayList].list.push(currentSongPlaying);
+        result = createSongElement(currentSongPlaying, div, currentPlayListId);
+        result.append(removeIcon);
         currentPlaylist.append(
-          createSongElement(currentSongPlaying, div, currentPlayListId)
+          result
         );
+
+        let removeAction = document.querySelector(`[song-id = '${currentSongPlaying.id}']`); //[song-id='7']
+    console.log(removeAction);
       }
     }
   });

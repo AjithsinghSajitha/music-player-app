@@ -67,14 +67,16 @@ const nextBtn = document.getElementById("next");
 const prevBtn = document.getElementById("prev");
 const createPlaylistBtn = document.getElementById("create-playlist");
 const addToPlaylist = document.getElementById("add-to-playlist");
+const songName = document.getElementById("song-name");
+const artistName = document.getElementById("artist-name");
 
 //Create song element
 const createSongElement = (song, div, id) => {
-  div.innerText = song.name;
+  div.innerText = `${song.name} - ${song.artist}`;
   div.setAttribute("playlist-id", id);
   div.classList.add("song");
   div.addEventListener("click", () => {
-    playMusic(song);
+    renderCurrentSong(song);
     if (allPlaylist[id]) currentSongList = allPlaylist[id].list;
   });
   return div;
@@ -103,7 +105,7 @@ const filteredSongs = () => {
   });
 };
 
-const setGenreList = () => {
+const showSongs = () => {
   songs.map((song) => {
     let filter = document.createElement("option");
 
@@ -117,7 +119,7 @@ const setGenreList = () => {
 };
 
 //switch the theme
-const changeTheme = () => {
+const toggleTheme = () => {
   switchTheme.addEventListener("change", function () {
     if (this.checked) {
       root.style.setProperty("--theme-background", "var(--white)");
@@ -136,23 +138,25 @@ const changeTheme = () => {
 const nextSong = (songs, currentSong) => {
   let songIndex = songs.findIndex((song) => song.id === currentSong.id);
 
-  if (songs[songs.length - 1].id === currentSong.id) playMusic(songs[0]);
-  else playMusic(songs[songIndex + 1]);
+  if (songs[songs.length - 1].id === currentSong.id) renderCurrentSong(songs[0]);
+  else renderCurrentSong(songs[songIndex + 1]);
 };
 
 //previous song
 const prevSong = (songs, currentSong) => {
   let songIndex = songs.findIndex((song) => song.id === currentSong.id);
 
-  if (songs[0].id === currentSong.id) playMusic(songs[songs.length - 1]);
-  else playMusic(songs[songIndex - 1]);
+  if (songs[0].id === currentSong.id) renderCurrentSong(songs[songs.length - 1]);
+  else renderCurrentSong(songs[songIndex - 1]);
 };
 
 //play the selected music
-const playMusic = (song) => {
+const renderCurrentSong = (song) => {
   let player = document.getElementById("player");
   player.src = song.source;
   albumImage.setAttribute("src", song.img);
+  songName.innerText = song.name;
+  artistName.innerText = song.artist;
 
   player.pause();
   player.play();
@@ -217,7 +221,10 @@ const createPlaylist = () => {
 };
 
 //Create playlist
-createPlaylistBtn.addEventListener("click", createPlaylist);
+createPlaylistBtn.addEventListener("click", ()=>{
+  createPlaylist();
+  document.getElementById("new-playlist-name").value = '';
+});
 
 //update the current song list
 songList.addEventListener("click", () => {
@@ -225,9 +232,9 @@ songList.addEventListener("click", () => {
 });
 
 (function init() {
-  changeTheme();
+  toggleTheme();
   updateSongList(songs, songList);
-  setGenreList();
+  showSongs();
   filteredSongs();
   addSongsToPlaylist();
 })();

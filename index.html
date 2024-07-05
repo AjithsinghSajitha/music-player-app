@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://kit.fontawesome.com/c8b74b7dd6.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css" />
     <title>Music Player</title>
   </head>
@@ -20,21 +21,27 @@
             </select>
         </div>
 
-        <h3>All Songs</h3>
+        <h3>All Songs <input type="text" placeholder="Search songs"></h3>
         <div id="song-list">
         </div>
       </div>
       <div class="column" id="player-container">
-        <img src="" alt="" id="album-image">
+        <figure>
+          <img src="./img/images.png" alt="" id="album-image">
+          <figcaption>
+              <h2 id="song-name">Song name</h2>
+              <h3 id="artist-name">Artist</h3>
+          </figcaption>
+        </figure>
         <audio controls id="player" >
             <source id="play-music" src="" type="audio/ogg">
             Your browser does not support the audio element.
         </audio>
         <div>
-          <button id="prev">Prev</button>
-          <button id="next">Next</button>
+          <button id="prev"><i class="fa-solid fa-backward-step"></i></button>
+          <button id="next"><i class="fa-solid fa-forward-step"></i></button>
         </div>
-        <button id="add-to-playlist">Add to playlist</button>
+        <button id="add-to-playlist"><i class="fa-solid fa-plus"></i> Add to Playlist</button>
 
       </div>
       <div id="playlist" class="column">
@@ -48,7 +55,7 @@
         </div>
         
         <div id="all-playlist">
-          <h3>All Playlist</h3>
+          <h3>All Playlist <input type="text" placeholder="Search playlist"></h3>
         </div>
       </div>
     </main>

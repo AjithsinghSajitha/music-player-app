@@ -75,7 +75,7 @@ const createSongElement = (song, div, id) => {
   div.classList.add("song");
   div.addEventListener("click", () => {
     playMusic(song);
-    if (allPlaylist[id].list) currentSongList = allPlaylist[id].list;
+    if (allPlaylist[id]) currentSongList = allPlaylist[id].list;
   });
   return div;
 }

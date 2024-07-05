@@ -70,6 +70,8 @@ const addToPlaylist = document.getElementById("add-to-playlist");
 const songName = document.getElementById("song-name");
 const artistName = document.getElementById("artist-name");
 const searchSongInput = document.getElementById("search-song");
+const playlistSearchInput = document.getElementById("playlist-search");
+const allPlaylistElements = document.getElementsByClassName("playlist");
 
 //Create song element
 const createSongElement = (song, div, id) => {
@@ -81,7 +83,7 @@ const createSongElement = (song, div, id) => {
     if (allPlaylist[id]) currentSongList = allPlaylist[id].list;
   });
   return div;
-}
+};
 
 //This will update the song list and create a div for each song.
 const updateSongList = (songs, element, id = -1) => {
@@ -108,17 +110,13 @@ const filteredSongs = () => {
 //This will search songs based on the input
 const searchSongs = () => {
   searchSongInput.addEventListener("input", (e) => {
-    // if(e.key == "Enter"){
-      let filteredSongsList = songs.filter(
-        (song) =>
-          song.name.toLowerCase().includes(e.target.value.toLowerCase())
-      );
-  
-      e.target.value.toLowerCase() == ""
-        ? updateSongList(songs, songList)
-        : updateSongList(filteredSongsList, songList);
-    // }
-    
+    let filteredSongsList = songs.filter((song) =>
+      song.name.toLowerCase().includes(e.target.value.toLowerCase())
+    );
+
+    e.target.value.toLowerCase() == ""
+      ? updateSongList(songs, songList)
+      : updateSongList(filteredSongsList, songList);
   });
 };
 
@@ -155,7 +153,8 @@ const toggleTheme = () => {
 const nextSong = (songs, currentSong) => {
   let songIndex = songs.findIndex((song) => song.id === currentSong.id);
 
-  if (songs[songs.length - 1].id === currentSong.id) renderCurrentSong(songs[0]);
+  if (songs[songs.length - 1].id === currentSong.id)
+    renderCurrentSong(songs[0]);
   else renderCurrentSong(songs[songIndex + 1]);
 };
 
@@ -163,7 +162,8 @@ const nextSong = (songs, currentSong) => {
 const prevSong = (songs, currentSong) => {
   let songIndex = songs.findIndex((song) => song.id === currentSong.id);
 
-  if (songs[0].id === currentSong.id) renderCurrentSong(songs[songs.length - 1]);
+  if (songs[0].id === currentSong.id)
+    renderCurrentSong(songs[songs.length - 1]);
   else renderCurrentSong(songs[songIndex - 1]);
 };
 
@@ -209,7 +209,9 @@ const addSongsToPlaylist = () => {
         ) === -1
       ) {
         allPlaylist[selectedPlayList].list.push(currentSongPlaying);
-        currentPlaylist.append(createSongElement(currentSongPlaying, div, currentPlayListId));
+        currentPlaylist.append(
+          createSongElement(currentSongPlaying, div, currentPlayListId)
+        );
       }
     }
   });
@@ -237,10 +239,27 @@ const createPlaylist = () => {
   });
 };
 
+//Search playlist
+const searchPlaylist = () => {
+  playlistSearchInput.addEventListener("input", (e) => {
+    for (var item of allPlaylistElements) {
+      if (
+        item.innerText
+          .toLocaleLowerCase()
+          .includes(e.target.value.toLocaleLowerCase())
+      ) {
+        item.classList.remove("hide");
+      } else {
+        item.classList.add("hide");
+      }
+    }
+  });
+};
+
 //Create playlist
-createPlaylistBtn.addEventListener("click", ()=>{
+createPlaylistBtn.addEventListener("click", () => {
   createPlaylist();
-  document.getElementById("new-playlist-name").value = '';
+  document.getElementById("new-playlist-name").value = "";
 });
 
 //update the current song list
@@ -255,4 +274,5 @@ songList.addEventListener("click", () => {
   filteredSongs();
   addSongsToPlaylist();
   searchSongs();
+  searchPlaylist();
 })();

@@ -221,3 +221,7 @@ margin-top: var(--large);
 #all-playlist{
   margin-top: var(--large);
 }
+
+.hide{
+  display: none;
+}

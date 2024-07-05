@@ -69,6 +69,7 @@ const createPlaylistBtn = document.getElementById("create-playlist");
 const addToPlaylist = document.getElementById("add-to-playlist");
 const songName = document.getElementById("song-name");
 const artistName = document.getElementById("artist-name");
+const searchSongInput = document.getElementById("search-song");
 
 //Create song element
 const createSongElement = (song, div, id) => {
@@ -102,6 +103,22 @@ const filteredSongs = () => {
     e.target.value.toLocaleLowerCase() == "all"
       ? updateSongList(songs, songList)
       : updateSongList(filteredSongsList, songList);
+  });
+};
+//This will search songs based on the input
+const searchSongs = () => {
+  searchSongInput.addEventListener("input", (e) => {
+    // if(e.key == "Enter"){
+      let filteredSongsList = songs.filter(
+        (song) =>
+          song.name.toLowerCase().includes(e.target.value.toLowerCase())
+      );
+  
+      e.target.value.toLowerCase() == ""
+        ? updateSongList(songs, songList)
+        : updateSongList(filteredSongsList, songList);
+    // }
+    
   });
 };
 
@@ -237,4 +254,5 @@ songList.addEventListener("click", () => {
   showSongs();
   filteredSongs();
   addSongsToPlaylist();
+  searchSongs();
 })();

@@ -88,9 +88,27 @@ const createSongElement = (song, div, id) => {
 //This will update the song list and create a div for each song.
 const updateSongList = (songs, element, id = -1) => {
   element.innerHTML = "";
-  songs.map((song) => {
+  songs.map((song, index) => {
     let div = document.createElement("div");
-    element.append(createSongElement(song, div, id));
+    let removeIcon = document.createElement("span");
+    let result;
+
+    result = createSongElement(song, div, id);
+    if (selectedPlayList || selectedPlayList === 0) {
+      removeIcon.innerHTML = `<i class="fa-solid fa-trash" song-id="${index}"></i>`;
+      removeIcon.addEventListener('click', (e)=>{
+        allPlaylist[selectedPlayList].list.splice(index, 1);
+        e.stopPropagation();
+        updateSongList(
+          allPlaylist[selectedPlayList].list,
+          currentPlaylist,
+          currentPlayListId
+        );
+      });
+      result.append(removeIcon);
+    }
+
+    element.append(result);
   });
 };
 
@@ -120,6 +138,7 @@ const searchSongs = () => {
   });
 };
 
+//Song list
 const showSongs = () => {
   songs.map((song) => {
     let filter = document.createElement("option");
@@ -153,18 +172,18 @@ const toggleTheme = () => {
 const nextSong = (songs, currentSong) => {
   let songIndex = songs.findIndex((song) => song.id === currentSong.id);
 
-  if (songs[songs.length - 1].id === currentSong.id)
+  if (songs && songs[songs.length - 1].id === currentSong.id)
     renderCurrentSong(songs[0]);
-  else renderCurrentSong(songs[songIndex + 1]);
+  else if(songs) renderCurrentSong(songs[songIndex + 1]);
 };
 
 //previous song
 const prevSong = (songs, currentSong) => {
   let songIndex = songs.findIndex((song) => song.id === currentSong.id);
 
-  if (songs[0].id === currentSong.id)
+  if (songs && songs[0].id === currentSong.id)
     renderCurrentSong(songs[songs.length - 1]);
-  else renderCurrentSong(songs[songIndex - 1]);
+  else if(songs) renderCurrentSong(songs[songIndex - 1]);
 };
 
 //play the selected music
@@ -201,10 +220,20 @@ const renderCurrentSong = (song) => {
 const addSongsToPlaylist = () => {
   addToPlaylist.addEventListener("click", () => {
     let div = document.createElement("div");
-    let removeIcon = document.createElement('span')
+    let removeIcon = document.createElement("span");
     let result;
+    let index = allPlaylist[selectedPlayList].list.length;
 
-    removeIcon.innerHTML = `<i class="fa-solid fa-trash" song-id="${currentSongPlaying.id}"></i>`;
+    removeIcon.innerHTML = `<i class="fa-solid fa-trash" song-id="${index}"></i>`;
+    removeIcon.addEventListener('click', (e)=>{
+      allPlaylist[selectedPlayList].list.splice(index, 1);
+      e.stopPropagation();
+      updateSongList(
+        allPlaylist[selectedPlayList].list,
+        currentPlaylist,
+        currentPlayListId
+      );
+    });
 
     if (selectedPlayList || selectedPlayList === 0) {
       if (
@@ -215,12 +244,11 @@ const addSongsToPlaylist = () => {
         allPlaylist[selectedPlayList].list.push(currentSongPlaying);
         result = createSongElement(currentSongPlaying, div, currentPlayListId);
         result.append(removeIcon);
-        currentPlaylist.append(
-          result
-        );
+        currentPlaylist.append(result);
 
-        let removeAction = document.querySelector(`[song-id = '${currentSongPlaying.id}']`); //[song-id='7']
-    console.log(removeAction);
+        let removeAction = document.querySelector(
+          `[song-id = '${currentSongPlaying.id}']`
+        );
       }
     }
   });
@@ -239,12 +267,12 @@ const createPlaylist = () => {
   allPlaylist.push({ name: newPlaylistName, list: [] });
   div.addEventListener("click", () => {
     currentPlayListId = listId;
+    selectedPlayList = listId;
     updateSongList(
       allPlaylist[listId].list,
       currentPlaylist,
       currentPlayListId
     );
-    selectedPlayList = listId;
   });
 };
 

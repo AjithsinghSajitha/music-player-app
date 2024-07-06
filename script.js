@@ -73,6 +73,7 @@ const searchSongInput = document.getElementById("search-song");
 const playlistSearchInput = document.getElementById("playlist-search");
 const allPlaylistElements = document.getElementsByClassName("playlist");
 
+
 //Create song element
 const createSongElement = (song, div, id) => {
   div.innerText = `${song.name} - ${song.artist}`;
@@ -113,6 +114,7 @@ const updateSongList = (songs, element, id = -1) => {
 };
 
 //This will filter the all songs using the genre
+
 const filteredSongs = () => {
   filterList.addEventListener("change", (e) => {
     let filteredSongsList = songs.filter(

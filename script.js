@@ -96,7 +96,7 @@ const updateSongList = (songs, element, id = -1) => {
     result = createSongElement(song, div, id);
     if (selectedPlayList || selectedPlayList === 0) {
       removeIcon.innerHTML = `<i class="fa-solid fa-trash" song-id="${index}"></i>`;
-      removeIcon.addEventListener('click', (e)=>{
+      removeIcon.addEventListener("click", (e) => {
         allPlaylist[selectedPlayList].list.splice(index, 1);
         e.stopPropagation();
         updateSongList(
@@ -174,7 +174,7 @@ const nextSong = (songs, currentSong) => {
 
   if (songs && songs[songs.length - 1].id === currentSong.id)
     renderCurrentSong(songs[0]);
-  else if(songs) renderCurrentSong(songs[songIndex + 1]);
+  else if (songs) renderCurrentSong(songs[songIndex + 1]);
 };
 
 //previous song
@@ -183,7 +183,7 @@ const prevSong = (songs, currentSong) => {
 
   if (songs && songs[0].id === currentSong.id)
     renderCurrentSong(songs[songs.length - 1]);
-  else if(songs) renderCurrentSong(songs[songIndex - 1]);
+  else if (songs) renderCurrentSong(songs[songIndex - 1]);
 };
 
 //play the selected music
@@ -225,7 +225,7 @@ const addSongsToPlaylist = () => {
     let index = allPlaylist[selectedPlayList].list.length;
 
     removeIcon.innerHTML = `<i class="fa-solid fa-trash" song-id="${index}"></i>`;
-    removeIcon.addEventListener('click', (e)=>{
+    removeIcon.addEventListener("click", (e) => {
       allPlaylist[selectedPlayList].list.splice(index, 1);
       e.stopPropagation();
       updateSongList(

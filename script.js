@@ -87,7 +87,7 @@ const createSongElement = (song, div, id) => {
 };
 
 //This will update the song list and create a div for each song.
-const updateSongList = (songs, element, id = -1) => {
+const updateSongList = (songs, element, id = -1, isPlaylist = false) => {
   element.innerHTML = "";
   songs.map((song, index) => {
     let div = document.createElement("div");
@@ -95,7 +95,7 @@ const updateSongList = (songs, element, id = -1) => {
     let result;
 
     result = createSongElement(song, div, id);
-    if (selectedPlayList || selectedPlayList === 0) {
+    if ((selectedPlayList || selectedPlayList === 0)&& isPlaylist) {
       removeIcon.innerHTML = `<i class="fa-solid fa-trash" song-id="${index}"></i>`;
       removeIcon.addEventListener("click", (e) => {
         allPlaylist[selectedPlayList].list.splice(index, 1);
@@ -103,7 +103,8 @@ const updateSongList = (songs, element, id = -1) => {
         updateSongList(
           allPlaylist[selectedPlayList].list,
           currentPlaylist,
-          currentPlayListId
+          currentPlayListId, 
+          true
         );
       });
       result.append(removeIcon);
@@ -233,7 +234,8 @@ const addSongsToPlaylist = () => {
       updateSongList(
         allPlaylist[selectedPlayList].list,
         currentPlaylist,
-        currentPlayListId
+        currentPlayListId,
+        true
       );
     });
 
@@ -273,7 +275,8 @@ const createPlaylist = () => {
     updateSongList(
       allPlaylist[listId].list,
       currentPlaylist,
-      currentPlayListId
+      currentPlayListId,
+      true
     );
   });
 };
